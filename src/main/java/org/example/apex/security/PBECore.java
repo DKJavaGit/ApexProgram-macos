@@ -1,17 +1,20 @@
 package org.example.apex.security;
 
 import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
-import java.util.Arrays;
+import java.security.spec.KeySpec;
 import java.util.Base64;
 
 /**
- * Класс для шифрования и дешифрования данных с использованием алгоритма AES.
+ * Класс для шифрования и дешифрования данных с использованием алгоритма PBE (Password-Based Encryption).
  * Реализует интерфейс {@link Coder}.
  */
-public class NomadCore implements Coder {
+public class PBECore implements Coder {
     private String password; // Пароль для шифрования/дешифрования
     private byte[] key;      // Ключ шифрования
     private byte[] iv;       // Вектор инициализации (IV)
@@ -21,7 +24,7 @@ public class NomadCore implements Coder {
      *
      * @param password Пароль для шифрования.
      */
-    public NomadCore(String password) {
+    public PBECore(String password) {
         byte[] salt = generateSalt(); // Генерация соли
         this.iv = generateIv();       // Генерация случайного IV
         this.key = generateKey(password, salt); // Генерация ключа на основе пароля и соли
@@ -35,7 +38,7 @@ public class NomadCore implements Coder {
      * @param key      Ключ шифрования.
      * @param iv       Вектор инициализации.
      */
-    public NomadCore(String password, byte[] key, byte[] iv) {
+    public PBECore(String password, byte[] key, byte[] iv) {
         this.password = password;
         this.key = key;
         this.iv = iv;
@@ -60,6 +63,7 @@ public class NomadCore implements Coder {
 
             // Шифруем данные
             byte[] encryptedBytes = cipher.doFinal(password.getBytes());
+
             // Кодируем результат в Base64 и возвращаем
             password = Base64.getEncoder().encodeToString(encryptedBytes);
             return password;

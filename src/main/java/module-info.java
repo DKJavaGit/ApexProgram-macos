@@ -10,4 +10,6 @@ module org.example.apex {
     opens org.example.apex.controllers;
     exports org.example.apex;
     opens org.example.apex.utils.list_objects;
+    exports org.example.apex.exceptions;
+    opens org.example.apex.exceptions to javafx.fxml, junit;
 }

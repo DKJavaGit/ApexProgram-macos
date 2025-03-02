@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.Base64;
 
 /**
- * Класс для шифрования и дешифрования данных с использованием алгоритма AES.
+ * Класс для шифрования и дешифрования данных с использованием алгоритма DES.
  * Реализует интерфейс {@link Coder}.
  */
-public class NomadCore implements Coder {
+public class DESCore implements Coder {
     private String password; // Пароль для шифрования/дешифрования
     private byte[] key;      // Ключ шифрования
     private byte[] iv;       // Вектор инициализации (IV)
@@ -21,7 +21,7 @@ public class NomadCore implements Coder {
      *
      * @param password Пароль для шифрования.
      */
-    public NomadCore(String password) {
+    public DESCore(String password) {
         byte[] salt = generateSalt(); // Генерация соли
         this.iv = generateIv();       // Генерация случайного IV
         this.key = generateKey(password, salt); // Генерация ключа на основе пароля и соли
@@ -35,7 +35,7 @@ public class NomadCore implements Coder {
      * @param key      Ключ шифрования.
      * @param iv       Вектор инициализации.
      */
-    public NomadCore(String password, byte[] key, byte[] iv) {
+    public DESCore(String password, byte[] key, byte[] iv) {
         this.password = password;
         this.key = key;
         this.iv = iv;
@@ -51,15 +51,20 @@ public class NomadCore implements Coder {
     @Override
     public String encrypt(byte[] key, byte[] iv) {
         try {
-            // Создаём ключ AES
-            SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+            // Обрезаем ключ до 56 бит (7 байт) для DES
+            byte[] desKey = new byte[8];
+            System.arraycopy(key, 0, desKey, 0, 8);
+
+            // Создаём ключ DES
+            SecretKeySpec secretKey = new SecretKeySpec(desKey, "DES");
 
             // Инициализируем шифр в режиме шифрования
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(iv));
 
             // Шифруем данные
             byte[] encryptedBytes = cipher.doFinal(password.getBytes());
+
             // Кодируем результат в Base64 и возвращаем
             password = Base64.getEncoder().encodeToString(encryptedBytes);
             return password;
@@ -88,11 +93,15 @@ public class NomadCore implements Coder {
     @Override
     public String decrypt(byte[] key, byte[] iv) {
         try {
-            // Создаём ключ AES
-            SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+            // Обрезаем ключ до 56 бит (7 байт) для DES
+            byte[] desKey = new byte[8];
+            System.arraycopy(key, 0, desKey, 0, 8);
+
+            // Создаём ключ DES
+            SecretKeySpec secretKey = new SecretKeySpec(desKey, "DES");
 
             // Инициализируем шифр в режиме дешифрования
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
 
             // Декодируем Base64 и расшифровываем данные
@@ -115,12 +124,12 @@ public class NomadCore implements Coder {
     }
 
     /**
-     * Генерирует случайный вектор инициализации (IV) для AES.
+     * Генерирует случайный вектор инициализации (IV) для DES.
      *
-     * @return Сгенерированный IV длиной 16 байт.
+     * @return Сгенерированный IV длиной 8 байт.
      */
     private byte[] generateIv() {
-        byte[] iv = new byte[16]; // 16 байт для AES
+        byte[] iv = new byte[8]; // 8 байт для DES
         new SecureRandom().nextBytes(iv);
         return iv;
     }

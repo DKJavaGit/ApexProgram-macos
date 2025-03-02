@@ -4,7 +4,6 @@ import org.example.apex.utils.list_objects.Account;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Utility class for saving and loading Account objects to/from a file.
@@ -13,6 +12,7 @@ import java.util.List;
 public class ContentLoader {
     private ArrayList<Account> accounts; // List of accounts to be saved or loaded
     private final String APEX_FOLDER;   // Directory path where account data is stored
+    private boolean areAccountsEncrypted = false; // Status of the accounts' list, is it encrypted or not
 
     /**
      * Constructor to initialize the ContentLoader with the APEX folder path.
@@ -40,14 +40,19 @@ public class ContentLoader {
      *
      * @throws RuntimeException If the directory or file cannot be created, or if serialization fails.
      */
-    public void saveAccounts() {
+    public void saveAccounts()
+    {
         File accountsFolder = new File(APEX_FOLDER + "/Apex_Accounts");
         File accountsFile = new File(accountsFolder, "accounts.ser");
 
+        // Ensure the list is encrypted
+        if (!areAccountsEncrypted)
+            System.out.println("Nothing");
+            // Crypt list
+
         // Ensure the directory exists
-        if (!accountsFolder.exists() && !accountsFolder.mkdirs()) {
+        if (!accountsFolder.exists() && !accountsFolder.mkdirs())
             throw new RuntimeException("Failed to create directory: " + accountsFolder.getAbsolutePath());
-        }
 
         // Ensure the file exists
         if (!accountsFile.exists()) {
@@ -73,7 +78,8 @@ public class ContentLoader {
      *
      * @return A list of Account objects, or null if the file does not exist or an error occurs.
      */
-    public ArrayList<Account> loadAccounts() {
+    public ArrayList<Account> loadAccounts()
+    {
         File accountsFile = new File(APEX_FOLDER + "/Apex_Accounts/accounts.ser");
 
         // Check if the file exists before attempting to load
