@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.apex.controllers.TableSceneController">
+   <children>
+      <TableView fx:id="table" layoutY="60.0" prefHeight="340.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <columns>
+            <TableColumn fx:id="platform_cmn" prefWidth="75.0" text="Платформа" />
+            <TableColumn fx:id="login_cmn" prefWidth="75.0" text="Логин" />
+            <TableColumn fx:id="password_cmn" prefWidth="75.0" text="Пароль" />
+            <TableColumn fx:id="rel_cmn" prefWidth="75.0" text="Надежность" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <ImageView fx:id="find_img" fitHeight="26.0" fitWidth="24.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#find" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/find-picture1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="add_img" fitHeight="32.0" fitWidth="31.0" layoutX="473.0" layoutY="18.0" onMouseClicked="#addObject" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="96.0">
+         <image>
+            <Image url="@../images/plus-picture.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="find_tf" layoutX="66.0" layoutY="24.0" prefHeight="26.0" prefWidth="382.0" promptText="Введите логин/платформу" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="152.0" />
+      <ImageView fx:id="delete_img" fitHeight="26.0" fitWidth="39.0" layoutX="555.0" layoutY="20.0" onMouseClicked="#deleteObject" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="7.0">
+         <image>
+            <Image url="@../images/img.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="add_img1" fitHeight="32.0" fitWidth="31.0" layoutX="513.0" layoutY="18.0" onMouseClicked="#editObject" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="56.0">
+         <image>
+            <Image url="@../images/edit-image.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

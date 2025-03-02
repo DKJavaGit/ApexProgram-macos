@@ -1,0 +1,103 @@
+/* General Styles */
+.root {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    -fx-base: #f4f4f4; /* Light background color */
+    -fx-accent: #5DADE2; /* Highlight color (blueish) */
+    -fx-focus-color: -fx-accent;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+}
+
+.button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Subtle shadow */
+}
+
+.button:hover {
+    -fx-background-color: derive(-fx-accent, -10%); /* Darken on hover */
+}
+
+.button:pressed {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
+}
+
+.text-field, .password-field {
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-background-color: white;
+    -fx-focus-color: -fx-accent; /* Highlight border on focus */
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -fx-accent;
+}
+
+/* TableView Styles */
+.table-view {
+    -fx-base: white;
+    -fx-control-inner-background: white;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:even {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(93, 173, 226, 0.3); /* Semi-transparent highlight */
+}
+
+/* Specific Styles for Password Manager elements (adjust names as needed) */
+.password-entry-title { /* Style for the title of a password entry */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+
+.password-entry-username { /* Style for the username associated with a password entry */
+    -fx-font-style: italic;
+    -fx-text-fill: #777777;
+}
+
+.password-strength-indicator { /* Style for a visual indicator of password strength */
+    -fx-background-color: green; /* Example: green for strong */
+    -fx-background-radius: 5px;
+    -fx-min-width: 50px;
+    -fx-min-height: 10px;
+}
+
+/* Tooltips */
+.tooltip {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5px;
+    -fx-background-radius: 3px;
+}
